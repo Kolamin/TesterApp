@@ -3,6 +3,7 @@ package ru.anton.views.question;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
@@ -12,22 +13,15 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ru.anton.data.entity.Question;
 import ru.anton.data.repository.CorrectAnswerRepository;
 import ru.anton.data.repository.QuestionRepository;
-import ru.anton.views.main.MainView;
 
 import java.util.List;
 
-@Route(value = "questions", layout = MainView.class)
-@Component
-@UIScope
 @PageTitle("Question")
-public class QuestionView extends VerticalLayout {
+public class QuestionView extends Div {
 
     private final QuestionRepository questionRepository;
 
@@ -69,7 +63,7 @@ public class QuestionView extends VerticalLayout {
             radioTestOptions.setItems(questionRepository.findById(ID)
                     .getTestOptions());
             UI.getCurrent()
-                    .navigate("exam");
+                    .navigate("questions");
         });
 
         add(createQuestionLayout(ID), createButtonLayout());

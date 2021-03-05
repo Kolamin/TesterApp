@@ -11,7 +11,6 @@ import ru.anton.views.main.MainView;
 import ru.anton.views.question.QuestionView;
 
 @CssImport("./views/choosingtheexam/choosingtheexam-view.css")
-@Route(value = "exam", layout = MainView.class)
 @PageTitle("Choosing the exam")
 public class ChoosingtheexamView extends Div {
 

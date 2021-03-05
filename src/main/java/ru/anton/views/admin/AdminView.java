@@ -8,7 +8,6 @@ import com.vaadin.flow.router.PageTitle;
 import ru.anton.views.main.MainView;
 
 @CssImport("./views/admin/admin-view.css")
-@Route(value = "admin", layout = MainView.class)
 @PageTitle("Admin")
 public class AdminView extends Div {
 

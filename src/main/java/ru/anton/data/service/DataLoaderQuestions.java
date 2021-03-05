@@ -21,6 +21,7 @@ import java.util.Arrays;
 
 @Service
 public class DataLoaderQuestions implements CommandLineRunner {
+
     private static final Logger log =
             LoggerFactory.getLogger(DataLoaderQuestions.class.getName());
 
@@ -84,6 +85,9 @@ public class DataLoaderQuestions implements CommandLineRunner {
         userRepository.save(new User("user", "u", Role.USER));
         userRepository.save(new User("admin", "a", Role.ADMIN));
         log.info("");
+        stringReaderAllTest.close();
+        strReaderCorrectAnswer.close();
+
     }
 
     private String[] getStrings(InputStream stringReaderAllTest) throws IOException {
