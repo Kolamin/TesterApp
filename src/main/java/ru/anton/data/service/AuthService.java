@@ -17,6 +17,8 @@ import java.util.List;
 @Service
 public class AuthService {
 
+
+
     public class AuthException extends Exception {
 
     }
@@ -65,5 +67,9 @@ public class AuthService {
         }
 
         return routes;
+    }
+
+    public void register(String username, String password) {
+        userRepository.save(new User(username, password, Role.USER));
     }
 }

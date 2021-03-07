@@ -4,7 +4,7 @@ import com.vaadin.flow.component.Component;
 
 import java.util.Objects;
 
-public  class AuthorizedRoute {
+public final class AuthorizedRoute {
     private String route;
     private String name;
     private Class<? extends Component> view;

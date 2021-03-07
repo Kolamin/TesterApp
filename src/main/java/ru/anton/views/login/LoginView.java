@@ -10,6 +10,7 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import ru.anton.data.service.AuthService;
 
 @CssImport("./views/login/login-view.css")
@@ -20,19 +21,20 @@ public class LoginView extends Div {
     public LoginView(AuthService authService) {
         addClassName("login-view");
         var username = new TextField("Username");
-        var passowrd = new PasswordField("Passowrd");
+        var passoword = new PasswordField("Passowrd");
         add(
                 new H1("Welcome"),
                 username,
-                passowrd,
+                passoword,
                 new Button("Login", event ->{
                     try {
-                        authService.authenticate(username.getValue(), passowrd.getValue());
+                        authService.authenticate(username.getValue(), passoword.getValue());
                         UI.getCurrent().navigate("questions");
                     } catch (AuthService.AuthException e) {
                         Notification.show("Wrong credentials.");
                     }
-                })
+                }),
+                new RouterLink("Register", RegisterView.class)
         );
     }
 
