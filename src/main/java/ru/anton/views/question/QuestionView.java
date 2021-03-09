@@ -6,6 +6,8 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -14,11 +16,13 @@ import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.radiobutton.RadioGroupVariant;
 import com.vaadin.flow.router.PageTitle;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.anton.data.entity.AnswerDetails;
 import ru.anton.data.entity.Question;
+import ru.anton.data.repository.AnswerDetailsRepository;
 import ru.anton.data.repository.CorrectAnswerRepository;
 import ru.anton.data.repository.QuestionRepository;
 
-import java.util.List;
+import java.util.*;
 
 @PageTitle("Question")
 public class QuestionView extends Div {
@@ -27,28 +31,33 @@ public class QuestionView extends Div {
 
     private final CorrectAnswerRepository correctAnswerRepository;
 
-    List<Question> allQuestion;
+    private final AnswerDetailsRepository answerDetails;
+
+    private List<Question> allQuestion;
 
     Button btnAbort;
     Button btnAnswer;
     Button btnNextQuestion;
     H3 nameQuestion;
     RadioButtonGroup<String> radioTestOptions;
+
     private static long ID = 1;
 
 
     @Autowired
-    public QuestionView(QuestionRepository questionRepository, CorrectAnswerRepository correctAnswerRepository) {
+    public QuestionView(QuestionRepository questionRepository, CorrectAnswerRepository correctAnswerRepository, AnswerDetailsRepository answerDetails1) {
 
         this.questionRepository = questionRepository;
         this.correctAnswerRepository = correctAnswerRepository;
+        this.answerDetails = answerDetails1;
+
 
         btnAnswer = new Button("Ответить");
         btnNextQuestion = new Button("Следующий вопрос");
 
 
-        allQuestion = questionRepository.findAll();
 
+        allQuestion = questionRepository.findAll();
 
         btnAbort = new Button("Прервать");
 
@@ -56,6 +65,9 @@ public class QuestionView extends Div {
 
         btnAbort.addClickListener(e -> {
             ID = 1;
+            if(radioTestOptions.getValue().equals(null)){
+                answerDetails.save(new AnswerDetails( null, questionRepository.findById(ID).getQuestion()));
+            }
             radioTestOptions.setValue(null);
             nameQuestion.setText(questionRepository.findById(ID)
                     .getId() + ". " + questionRepository.findById(ID)
@@ -90,6 +102,7 @@ public class QuestionView extends Div {
                     .set("margin-right", "0.5rem");
             btnCorrect.getStyle()
                     .set("margin-right", "0.5rem");
+            answerDetails.save(new AnswerDetails(true, questionRepository.findById(ID).getQuestion()));
             correctNotice.open();
         } else {
             Notification errNotice = new Notification();
@@ -104,6 +117,8 @@ public class QuestionView extends Div {
                     .set("margin-right", "0.5rem");
             btnErrCorrect.getStyle()
                     .set("margin-right", "0.5rem");
+
+            answerDetails.save(new AnswerDetails(false, questionRepository.findById(ID).getQuestion()));
             errNotice.open();
         }
     }

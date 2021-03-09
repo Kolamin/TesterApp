@@ -10,6 +10,7 @@ import ru.anton.views.admin.AdminView;
 import ru.anton.views.logout.LogoutView;
 import ru.anton.views.main.MainView;
 import ru.anton.views.question.QuestionView;
+import ru.anton.views.question.TableOfAnswersToQuestionsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,7 @@ public class AuthService {
 
             routes.add(new AuthorizedRoute("logout", "Logout", LogoutView.class));
             routes.add(new AuthorizedRoute("questions", "Г.2.1", QuestionView.class));
+            routes.add(new AuthorizedRoute("answers", "Ваши ответы", TableOfAnswersToQuestionsView.class));
 
         } else if (role.equals(Role.ADMIN)) {
 

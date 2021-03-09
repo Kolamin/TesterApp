@@ -4,10 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
-import ru.anton.data.entity.CorrectAnswer;
-import ru.anton.data.entity.Question;
-import ru.anton.data.entity.Role;
-import ru.anton.data.entity.User;
+import ru.anton.data.entity.*;
+import ru.anton.data.repository.AnswerDetailsRepository;
 import ru.anton.data.repository.CorrectAnswerRepository;
 import ru.anton.data.repository.QuestionRepository;
 import ru.anton.data.repository.UserRepository;
@@ -31,11 +29,14 @@ public class DataLoaderQuestions implements CommandLineRunner {
 
     private UserRepository userRepository;
 
+    private final AnswerDetailsRepository answerDetailsRepository;
+
     public DataLoaderQuestions(CorrectAnswerRepository correctAnswerRepository,
-                               QuestionRepository questionRepository, UserRepository userRepository) {
+                               QuestionRepository questionRepository, UserRepository userRepository, AnswerDetailsRepository answerDetailsRepository) {
         this.answerRepository = correctAnswerRepository;
         this.questionRepository = questionRepository;
         this.userRepository = userRepository;
+        this.answerDetailsRepository = answerDetailsRepository;
     }
 
     @Override
@@ -85,6 +86,7 @@ public class DataLoaderQuestions implements CommandLineRunner {
         userRepository.save(new User("user", "u", Role.USER));
         userRepository.save(new User("admin", "a", Role.ADMIN));
         log.info("");
+        //answerDetailsRepository.save(new AnswerDetails(null, null));
         stringReaderAllTest.close();
         strReaderCorrectAnswer.close();
 

@@ -7,11 +7,8 @@ import javax.persistence.*;
 @Entity
 public class CorrectAnswer extends AbstractEntity {
 
-
     @Column(length = 2048)
     private String correctAnswer;
-
-
 
     public String getCorrectAnswer() {
         return correctAnswer;
