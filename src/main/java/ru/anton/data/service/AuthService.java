@@ -65,6 +65,7 @@ public class AuthService {
             routes.add(new AuthorizedRoute("admin", "Admin", AdminView.class));
             routes.add(new AuthorizedRoute("logout", "Logout", LogoutView.class));
             routes.add(new AuthorizedRoute("questions", "Г.2.1", QuestionView.class));
+            routes.add(new AuthorizedRoute("answers", "Ваши ответы", TableOfAnswersToQuestionsView.class));
 
         }
 

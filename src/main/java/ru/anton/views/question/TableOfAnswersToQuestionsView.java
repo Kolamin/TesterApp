@@ -1,6 +1,7 @@
 package ru.anton.views.question;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -22,9 +23,10 @@ public class TableOfAnswersToQuestionsView extends Div {
 
         this.grid = new Grid<>(AnswerDetails.class);
         add(grid);
-        grid.setColumns("id", "status", "textQuestion");
+        grid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
+        grid.setColumns("id","textQuestion");
         grid.getColumnByKey("id").setWidth("50px").setFlexGrow(0);
-        grid.getColumnByKey("textQuestion").setAutoWidth(true);
+        grid.getColumnByKey("textQuestion");
         grid.addComponentColumn(item ->{
             Icon icon = null;
             if(item.getStatus() == true){
@@ -35,13 +37,13 @@ public class TableOfAnswersToQuestionsView extends Div {
                 icon.setColor("red");
             }
             return icon;
-        }).setKey("icon").setHeader("Status").setComparator(Comparator.comparing(AnswerDetails::getStatus));
-
+        }).setKey("instates").setHeader("Status").setComparator(Comparator.comparing(answerDetails -> answerDetails.getStatus()));
         listAnswerDetails();
 
     }
 
     private void listAnswerDetails() {
+
         grid.setItems(answerDetailsRepository.findAll());
     }
 }
