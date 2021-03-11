@@ -36,6 +36,8 @@ public class TableOfAnswersToQuestionsView extends Div {
                 icon = VaadinIcon.EXCLAMATION.create();
                 icon.setColor("red");
             }
+
+
             return icon;
         }).setKey("instates").setHeader("Status").setComparator(Comparator.comparing(answerDetails -> answerDetails.getStatus()));
         listAnswerDetails();

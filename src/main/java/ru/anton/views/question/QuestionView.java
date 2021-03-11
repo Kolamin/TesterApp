@@ -33,7 +33,7 @@ public class QuestionView extends Div {
 
     private final AnswerDetailsRepository answerDetails;
 
-    private List<Question> allQuestion;
+    private final List<Question> allQuestion;
 
     Button btnAbort;
     Button btnAnswer;
@@ -170,5 +170,9 @@ public class QuestionView extends Div {
         }
 
         return new HorizontalLayout(btnAnswer, btnNextQuestion, btnAbort);
+    }
+
+    public static void setID(long ID) {
+        QuestionView.ID = ID;
     }
 }

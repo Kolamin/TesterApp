@@ -2,6 +2,7 @@ package ru.anton.views.login;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Composite;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
@@ -53,5 +54,6 @@ public class RegisterView extends Composite {
             authService.register(username, password1);
             Notification.show("Registration succeeded");
         }
+        UI.getCurrent().navigate("login");
     }
 }
