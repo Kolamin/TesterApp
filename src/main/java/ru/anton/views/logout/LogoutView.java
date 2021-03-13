@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.anton.data.entity.User;
 import ru.anton.data.repository.AnswerDetailsRepository;
 import ru.anton.views.question.QuestionView;
+import ru.anton.views.question.TableOfAnswersToQuestionsView;
+
+import javax.persistence.EntityManager;
 
 @Route("logout")
 @PageTitle("Logout")
@@ -22,10 +25,11 @@ public class LogoutView extends Composite<VerticalLayout> {
         this.answerDetailsRepository = answerDetailsRepository;
 
         UI.getCurrent().getPage().setLocation("login");
+
+        this.answerDetailsRepository.deleteAllInBatch();
         VaadinSession.getCurrent().getSession().invalidate();
         QuestionView.setID(1L);
 
-        this.answerDetailsRepository.deleteAll();
         VaadinSession.getCurrent().close();
     }
 }

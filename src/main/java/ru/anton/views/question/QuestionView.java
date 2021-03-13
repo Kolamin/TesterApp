@@ -6,8 +6,6 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -22,10 +20,11 @@ import ru.anton.data.repository.AnswerDetailsRepository;
 import ru.anton.data.repository.CorrectAnswerRepository;
 import ru.anton.data.repository.QuestionRepository;
 
-import java.util.*;
+import java.util.List;
 
 @PageTitle("Question")
 public class QuestionView extends Div {
+
 
     private final QuestionRepository questionRepository;
 
@@ -39,10 +38,10 @@ public class QuestionView extends Div {
     Button btnAnswer;
     Button btnNextQuestion;
     H3 nameQuestion;
+
     RadioButtonGroup<String> radioTestOptions;
 
     private static long ID = 1;
-
 
     @Autowired
     public QuestionView(QuestionRepository questionRepository, CorrectAnswerRepository correctAnswerRepository, AnswerDetailsRepository answerDetails1) {
@@ -64,10 +63,9 @@ public class QuestionView extends Div {
         btnAnswer.addClickListener(e -> getCorrectAnswer());
 
         btnAbort.addClickListener(e -> {
+
             ID = 1;
-            if(radioTestOptions.getValue().equals(null)){
-                answerDetails.save(new AnswerDetails( null, questionRepository.findById(ID).getQuestion()));
-            }
+
             radioTestOptions.setValue(null);
             nameQuestion.setText(questionRepository.findById(ID)
                     .getId() + ". " + questionRepository.findById(ID)
@@ -85,6 +83,9 @@ public class QuestionView extends Div {
 
     }
 
+    public static void setID(long ID) {
+        QuestionView.ID = ID;
+    }
 
     private void getCorrectAnswer() {
         if (correctAnswerRepository.findById(ID)
@@ -102,7 +103,9 @@ public class QuestionView extends Div {
                     .set("margin-right", "0.5rem");
             btnCorrect.getStyle()
                     .set("margin-right", "0.5rem");
-            answerDetails.save(new AnswerDetails(true, questionRepository.findById(ID).getQuestion()));
+            if(!answerDetails.existsById(ID)) {
+                answerDetails.save(new AnswerDetails(true, questionRepository.findById(ID).getQuestion()));
+            }
             correctNotice.open();
         } else {
             Notification errNotice = new Notification();
@@ -117,8 +120,9 @@ public class QuestionView extends Div {
                     .set("margin-right", "0.5rem");
             btnErrCorrect.getStyle()
                     .set("margin-right", "0.5rem");
-
-            answerDetails.save(new AnswerDetails(false, questionRepository.findById(ID).getQuestion()));
+            if(!answerDetails.existsById(ID)) {
+                answerDetails.save(new AnswerDetails(false, questionRepository.findById(ID).getQuestion()));
+            }
             errNotice.open();
         }
     }
@@ -172,7 +176,5 @@ public class QuestionView extends Div {
         return new HorizontalLayout(btnAnswer, btnNextQuestion, btnAbort);
     }
 
-    public static void setID(long ID) {
-        QuestionView.ID = ID;
-    }
+
 }

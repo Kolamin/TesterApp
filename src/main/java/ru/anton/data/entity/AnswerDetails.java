@@ -3,11 +3,10 @@ package ru.anton.data.entity;
 import com.vaadin.flow.component.icon.Icon;
 import ru.anton.data.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
-public class AnswerDetails extends AbstractEntity {
+public class AnswerDetails extends AbstractEntity{
 
     @Column
     private Boolean status;
