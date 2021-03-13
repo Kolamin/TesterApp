@@ -12,6 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import ru.anton.data.service.AuthService;
+import ru.anton.data.service.DataLoaderQuestions;
 
 @CssImport("./views/login/login-view.css")
 @Route(value = "login")

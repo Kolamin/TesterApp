@@ -22,8 +22,8 @@ public class TableOfAnswersToQuestionsView extends Div {
         this.answerDetailsRepository = answerDetailsRepository;
 
         this.grid = new Grid<>(AnswerDetails.class);
-        add(grid);
         grid.addThemeVariants(GridVariant.LUMO_WRAP_CELL_CONTENT);
+        add(grid);
         grid.setColumns("id","textQuestion");
         grid.getColumnByKey("id").setWidth("50px").setFlexGrow(0);
         grid.getColumnByKey("textQuestion");
@@ -36,16 +36,14 @@ public class TableOfAnswersToQuestionsView extends Div {
                 icon = VaadinIcon.EXCLAMATION.create();
                 icon.setColor("red");
             }
-
-
             return icon;
-        }).setKey("instates").setHeader("Status").setComparator(Comparator.comparing(answerDetails -> answerDetails.getStatus()));
+        }).setKey("icon").setHeader("Status").setComparator(Comparator.comparing(AnswerDetails::getStatus));
+
         listAnswerDetails();
 
     }
 
     private void listAnswerDetails() {
-
         grid.setItems(answerDetailsRepository.findAll());
     }
 }
