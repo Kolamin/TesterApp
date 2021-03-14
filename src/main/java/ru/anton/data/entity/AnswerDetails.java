@@ -1,6 +1,5 @@
 package ru.anton.data.entity;
 
-import com.vaadin.flow.component.icon.Icon;
 import ru.anton.data.AbstractEntity;
 
 import javax.persistence.*;
